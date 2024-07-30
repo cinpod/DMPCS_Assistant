@@ -1,5 +1,7 @@
 DMPCS ASSISTANCE Application
+
 Created by: Mark Andrae Sijera
+
 Project for CMSC 198 - Practicum for Midyear 2023-2024.
             
 - The application reads data contained 'faculty_info.csv' for its operations. Kindly read more in the aforementioned file for more information. 
