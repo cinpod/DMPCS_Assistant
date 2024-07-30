@@ -1,5 +1,6 @@
 package com.cmsc198.dmpcsassistant
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var availableLocations: MutableList<String> // array of available locations from string xml
 
     private val scanQrCode = registerForActivityResult(ScanCustomCode(), ::scanResult)
-    private val qrPasscode = "DMPCS_FACULTY_MEMBER" // use qr code generator to create qr code (several online)
+    private val qrPasscode = "DMPCS_FACULTY_MEMBER" // use a QR Code generator to convert text to QR Code (several online)
 
     companion object {
         var isLoggedIn: Boolean = false
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -108,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                 (v as CardView).setCardBackgroundColor(getColor(R.color.light_gray))
             }
             MotionEvent.ACTION_UP -> {
-                v.animate().cancel();
+                v.animate().cancel()
                 v.animate().scaleX(1f).setDuration(250).start()
                 v.animate().scaleY(1f).setDuration(250).start()
                 (v as CardView).setCardBackgroundColor(getColor(R.color.white))
