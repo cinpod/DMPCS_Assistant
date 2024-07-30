@@ -2,6 +2,7 @@ package com.cmsc198.dmpcsassistant
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,8 +16,11 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -37,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var availableLocations: MutableList<String> // array of available locations from string xml
 
+    private val REQUEST_CODE_STORAGE_PERMISSION = 1
     private val scanQrCode = registerForActivityResult(ScanCustomCode(), ::scanResult)
     private val qrPasscode = "DMPCS_FACULTY_MEMBER" // use a QR Code generator to convert text to QR Code (several online)
 
@@ -68,18 +73,35 @@ class MainActivity : AppCompatActivity() {
         decorView.systemUiVisibility = uiOptions
 
         // Settling permission stuff for app
-        manageStoragePermissionLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        manageStoragePermissionLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (!Environment.isExternalStorageManager()) {
-                    requestManageExternalStoragePermission()
-                    Log.d("MainActivity", "Requesting for permission.")
+                if (Environment.isExternalStorageManager()) {
+                    Log.d("MainActivity", "MANAGE_EXTERNAL_STORAGE Permission granted.")
+                } else {
+                    Log.e("MainActivity", "Permission denied.")
                 }
+            }
+        }
+
+        // request permission for Android 10 and below
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            checkAndRequestStoragePermissions() // if permission is not yet granted, app will ask for permission
+            showRestartDialog()
+        }
+
+        // request permission for Android 11 and above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // make sure this only runs while permission has not been granted yet
+            // once permission has been granted, condition below will always evaluate to true
+            if (!Environment.isExternalStorageManager()) {
+                checkAndRequestManageStoragePermission()
+                showRestartDialog()
+
             }
         }
 
         // create related files/directory
         val afm = AssistantFolderManager(this)
-        afm.initializeAssistantFiles()
 
         // add available locations to mutable list
         addLocations()
@@ -96,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        afm.initializeAssistantFiles()
         val facultyCsvData = afm.getCsvAllData()
         drawFacultyLocator(facultyCsvData)
     }
@@ -207,10 +230,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (text == qrPasscode) {
-            Toast.makeText(this, getString(R.string.login_sucess), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.login_sucess), Toast.LENGTH_LONG).show()
             logInOut()
         } else {
-            Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -241,10 +264,42 @@ class MainActivity : AppCompatActivity() {
 
     // permissions
 
-    private fun requestManageExternalStoragePermission() {
-        val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-        intent.data = Uri.parse("package:${packageName}")
-        manageStoragePermissionLauncher.launch(intent)
+    // legacy external storage permissions (Android 10 and below)
+    private fun checkAndRequestStoragePermissions() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    REQUEST_CODE_STORAGE_PERMISSION
+                )
+            }
+        }
+    }
+
+    // external storage permission for Android 11 and above
+    private fun checkAndRequestManageStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, Uri.parse("package:${packageName}"))
+                manageStoragePermissionLauncher.launch(intent)
+            }
+        }
+    }
+
+    private fun showRestartDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Permission Granted")
+            .setMessage("The app will now restart to apply the new permission.")
+            .setPositiveButton("Confirm") { _, _ ->
+                val intent = packageManager.getLaunchIntentForPackage(packageName)
+                intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+                Runtime.getRuntime().exit(0)
+            }
+            .setCancelable(false)
+            .show()
     }
 
     // test functions
