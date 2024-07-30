@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UP Brand Book Colors /-->
+    <color name="maroon">#FF7B1113</color>
+    <color name="green">#FF014421</color>
+    <color name="yellow">#FFF3AA2C</color>
+    <color name="black">#FF000000</color>
+
+    <!-- Supporting Colors /-->
+    <color name="olive_green">#FF565422</color>
+    <color name="yellow_green">#FF335628</color>
+    <color name="blue">#FF132E54</color>
+    <color name="red">#FF8E171A</color>
+    <color name="terracotta">#FFB43C25</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_gray">#FFBFBFBF</color>
+    <color name="gray">#FF808080</color>
+    <color name="dark_gray">#FF404040</color>
+
+</resources>

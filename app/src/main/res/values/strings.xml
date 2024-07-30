@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">DMPCS Assistant</string>
+    <string name="upmin_name">University of the Philippines</string>
+    <string name="upmin_logo">UP Mindanao logo</string>
+    <string name="dmpcs_assistant">DMPCS Assistant</string>
+    <string name="header_text">University of the Philippines Mindanao\nDMPCS Assistant</string>
+    <string name="faculty_locator">Faculty Locator</string>
+    <string name="card_quickLinks">Quick Links</string>
+    <string name="card_citizensCharter">Citizen\'s\nCharter</string>
+    <string name="card_login">Login</string>
+    <string name="card_logout">Logout</string>
+
+
+<!--    faculty locator -->
+    <string name="faculty_name">Name</string>
+    <string name="faculty_update_locaton">Update location</string>
+    <string name="faculty_location">Current Location</string>
+    <string name="loc_in_office">In Office</string>
+    <string name="loc_in_class_meeting">In A Class/Meeting</string>
+    <string name="loc_admin_bldg">Admin Bldg.</string>
+    <string name="loc_off_campus_leave">Off-Campus (Leave)</string>
+    <string name="loc_off_campus_travel">Off-Campus (Travel)</string>
+    <string name="button_update_loc">Update Location</string>
+
+<!--    faculty member info-->
+    <string name="fm_name">name</string>
+    <string name="fm_current_location">current location</string>
+    <string name="fm_position">position</string>
+    <string name="fm_consultation_time">Consultation time: </string>
+    <string name="fm_email">Email: </string>
+    <string name="fm_last_updated">Last updated: </string>
+
+<!--    quick links -->
+    <string name="ql_upmin">UPMin Website</string>
+    <string name="ql_dmpcs">DMPCS Website</string>
+    <string name="ql_dmpcs_faculty">DMPCS Faculty</string>
+    <string name="ql_request_to_use">Request to Use\nFacilities and Labs</string>
+    <string name="ql_online_resources">Online Resources</string>
+    <string name="ql_academic_calendar">Academic Calendar</string>
+
+<!--    citizens charter-->
+    <string name="cc_citizens_charter">DMPCS Citizens Charter</string>
+    <string name="cc_content_description">PDF Preview</string>
+
+    <string name="filler">Lorem ipsum</string>
+    <string name="close_button">Close Button</string>
+    <string name="login_sucess">Login successful</string>
+    <string name="login_fail">Login failed</string>
+</resources>

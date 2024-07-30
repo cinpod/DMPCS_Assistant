@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="12dp"
+    android:background="@color/green">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/update_image"
+            android:layout_width="270dp"
+            android:layout_height="270dp"
+            android:layout_marginBottom="75dp"
+            android:layout_marginEnd="50dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/up_mindanao_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/update_linear_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/update_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxWidth="400dp"
+            android:gravity="center"
+            android:text="@string/filler"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/arial"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/update_image"
+            app:layout_constraintStart_toStartOf="@id/update_image"
+            app:layout_constraintEnd_toEndOf="@id/update_image"/>
+
+        <LinearLayout
+            android:id="@+id/update_linear_layout"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="@string/faculty_update_locaton"
+                android:textStyle="bold"
+                android:fontFamily="@font/optima_bold"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/yellow"
+                android:textSize="36sp"/>
+
+            <Button
+                android:id="@+id/update_office_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:padding="20dp"
+                android:text="@string/loc_in_office"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/yellow_green"
+                android:textSize="24sp"
+                android:drawableLeft="@drawable/ic_location_header_office"
+                android:drawableRight="@drawable/ic_location_header_office" />
+
+            <Button
+                android:id="@+id/update_class_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:padding="20dp"
+                android:text="@string/loc_in_class_meeting"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/yellow"
+                android:textSize="24sp"
+                android:drawableLeft="@drawable/ic_location_header_class"
+                android:drawableRight="@drawable/ic_location_header_class" />
+
+            <Button
+                android:id="@+id/update_admin_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:padding="20dp"
+                android:text="@string/loc_admin_bldg"
+                android:textStyle="bold"
+                android:backgroundTint="@color/terracotta"
+                android:textSize="24sp"
+                android:drawableLeft="@drawable/ic_location_header_admin"
+                android:drawableRight="@drawable/ic_location_header_admin"
+                android:drawableTint="@color/white" />
+
+            <Button
+                android:id="@+id/update_leave_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:padding="20dp"
+                android:text="@string/loc_off_campus_leave"
+                android:textStyle="bold"
+                android:backgroundTint="@color/dark_gray"
+                android:textSize="24sp"
+                android:drawableLeft="@drawable/ic_location_header_leave"
+                android:drawableRight="@drawable/ic_location_header_leave"
+                android:drawableTint="@color/white" />
+
+            <Button
+                android:id="@+id/update_travel_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="@string/loc_off_campus_travel"
+                android:textStyle="bold"
+                android:backgroundTint="@color/gray"
+                android:textSize="24sp"
+                android:drawableLeft="@drawable/ic_location_header_travel"
+                android:drawableRight="@drawable/ic_location_header_travel"
+                android:drawableTint="@color/white" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</FrameLayout>
