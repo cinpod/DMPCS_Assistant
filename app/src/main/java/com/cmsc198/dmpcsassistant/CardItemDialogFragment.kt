@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import java.io.File
@@ -49,13 +50,13 @@ class CardItemDialogFragment(private val id : String, private val context: Conte
         // set text according to the values in the csv
         imageView.contentDescription = "Image of ${csvName[afm.LAST_NAME]}"
         val csvData = afm.getRowFromId(id)
-        val consultationText = "${resources.getString(R.string.fm_consultation_time)} ${csvData[afm.CONSULTATION_TIME]}"
-        val emailText = "${resources.getString(R.string.fm_email)} ${csvData[afm.EMAIL]}"
+        val consultationText = "${resources.getString(R.string.fm_consultation_time)} ${csvData[afm.CONSULTATION_TIME].ifBlank { "N/A" }}"
+        val emailText = "${resources.getString(R.string.fm_email)} ${csvData[afm.EMAIL].ifBlank { "N/A" }}"
         val updatedText = "${resources.getString(R.string.fm_last_updated)} ${csvData[afm.LAST_UPDATED]}"
 
         // change text to show information
         nameView.text = formatFullName(csvData[afm.LAST_NAME], csvData[afm.FIRST_NAME], csvData[afm.MIDDLE_NAME], csvData[afm.SUFFIX])
-        positionView.text = csvData[afm.POSITION]
+        if (csvData[afm.POSITION].isBlank()) positionView.visibility = View.GONE else positionView.text = csvData[afm.POSITION]
         locationView.text = csvData[afm.LOCATION]
         consultationView.text = consultationText
         emailView.text = emailText
