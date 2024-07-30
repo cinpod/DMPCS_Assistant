@@ -1,6 +1,7 @@
 DMPCS ASSISTANCE Application
 Created by: Mark Andrae A. Sijera
 Project for CMSC 198 - Practicum for Midyear 2023-2024.
+GitHub repo: https://github.com/mrksjr/DMPCS_Assistant
             
 - The application reads data contained 'faculty_info.csv' for its operations. Kindly read more in the aforementioned file for more information. 
 - Place faculty member icons in the 'images' folder and make sure the filename is the same as the ID of the corresponding faculty member in the CSV (case-insensitive)
